@@ -8,8 +8,16 @@ colnames(dat) = c("TEAM", "R", "HR", "RBI", "SB", "OBP", "K", "W", "SV", "ERA", 
 rownames(dat) = dat$TEAM
 dat$TEAM = NULL
 
-for(i in colnames(dat)) {
-    dat[[paste(i, 'RANK', sep = " ")]][order(dat[[i]])] = 1:nrow(dat)
+for(i in colnames(dat[,1:10])) {
+    if(i == "ERA" | i == "WHIP"){
+        dat[[paste(i, 'RANK', sep = " ")]][order(dat[[i]], decreasing = FALSE)] = 1:nrow(dat)
+    }else{
+        dat[[paste(i, 'RANK', sep = " ")]][order(dat[[i]], decreasing = TRUE)] = 1:nrow(dat)
+    }
 }
 
+dat$RANK = rowMeans(dat[,11:length(colnames(dat))])
 
+result = dat[order(dat$RANK),]
+result = result[,"RANK", drop = FALSE]
+result
