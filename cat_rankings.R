@@ -1,4 +1,6 @@
 setwd("~/G_WD/swattingham")
+setwd("~/Personal Finance/swattingham")
+
 library(XML)
 library(reshape2)
 library(ggplot2)
@@ -42,7 +44,7 @@ colnames(plot_ranks) = c("Date", "Team", "Rank")
 plot = ggplot(data=plot_ranks, aes(x=Date, y=Rank, group = Team, colour = Team)) + geom_line()
 plot = plot + scale_y_reverse() + ggtitle("SwattingHAM Scoring Category Rankings")
 
-png(filename="/Users/TimHealy/G_WD/swattingham/rank_chart.png")
+png(filename=paste(getwd(),"rank_chart.png", sep = "/"))
 plot(plot)
 dev.off()
 
