@@ -48,4 +48,6 @@ png(filename=paste(getwd(),"rank_chart.png", sep = "/"))
 plot(plot)
 dev.off()
 
-quit(save='no')
+read.csv("cat_rankings.csv", check.names = FALSE, row.names = 1)
+
+## quit(save='no')
