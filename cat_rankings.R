@@ -36,13 +36,16 @@ ranks = merge(ranks, result, by = "row.names")
 rownames(ranks) = ranks$Row.names
 ranks$Row.names = NULL
 ranks = ranks[order(ranks[,length(colnames(ranks))]),]
+colnames(ranks) = seq(6, 5+length(colnames(ranks)), by = 1 )
 write.csv(ranks, paste(getwd(), "/cat_rankings.csv", sep = ""))
 
 plot_ranks = t(ranks)
 plot_ranks = melt(plot_ranks, id="Date")
 colnames(plot_ranks) = c("Date", "Team", "Rank")
 plot = ggplot(data=plot_ranks, aes(x=Date, y=Rank, group = Team, colour = Team)) + geom_line()
-plot = plot + scale_y_reverse() + ggtitle("SwattingHAM Scoring Category Rankings")
+plot = plot + scale_y_reverse() + ggtitle("SwattingHAM Scoring Category Rankings") +
+              scale_x_continuous(breaks = as.numeric(colnames(ranks)) )
+            
 
 png(filename=paste(getwd(),"rank_chart.png", sep = "/"))
 plot(plot)
